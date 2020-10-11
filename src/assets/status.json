@@ -1,0 +1,71 @@
+{
+  "id": 0,
+  "information": {
+    "problem": {
+      "id": 101,
+      "content": {
+        "description": "问题描述",
+        "input": "输入内容",
+        "output": "输出内容",
+        "examples": [
+          {
+            "inputExample": "输入样例1",
+            "outputExample": "输出样例1"
+          },
+          {
+            "inputExample": "输入样例2",
+            "outputExample": "输出样例2"
+          }
+        ],
+        "hint": "提示"
+      },
+      "sources": [
+        {},
+        {}
+      ],
+      "tags": [],
+      "region": "Shanghai",
+      "lowestUserIdentity": "USER",
+      "whitelist": [
+        "user1",
+        "user2"
+      ]
+    },
+    "owner": {
+      "username": "admin"
+    },
+    "region": "Shanghai?",
+    "submitTime": "2020/10/6 20:58:20",
+    "finishTime": "2020/10/6 20:50:10",
+    "judgeStrategy": "OI",
+    "finalResult": "result"
+  },
+  "isCompileError": false,
+  "compileErrorMessage": "Error Message",
+  "judgeDetails": [
+    {
+      "testCase": 0,
+      "result": "WRONG_ANSWER",
+      "cpuTime": 10,
+      "realTime": 20,
+      "memory": 100,
+      "signal": 1,
+      "exitCode": 0,
+      "error": -1,
+      "output": "测试错误"
+    },
+    {
+      "testCase": 1,
+      "result": "WRONG_ANSWER",
+      "cpuTime": 10,
+      "realTime": 22,
+      "memory": 100,
+      "signal": 1,
+      "exitCode": 0,
+      "error": -1,
+      "output": "测试错误"
+    }
+  ],
+  "lowestUserIdentity": "STUDENT",
+  "specialPermissionsKey": "token"
+}

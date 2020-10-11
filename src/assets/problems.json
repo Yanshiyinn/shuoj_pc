@@ -1,0 +1,30 @@
+{
+  "id": 101,
+  "content": {
+    "description": "问题描述",
+    "input": "输入内容",
+    "output": "输出内容",
+    "examples": [
+      {
+        "inputExample": "输入样例1",
+        "outputExample": "输出样例1"
+      },
+      {
+        "inputExample": "输入样例2",
+        "outputExample": "输出样例2"
+      }
+    ],
+    "hint": "提示"
+  },
+  "sources": [
+    {},
+    {}
+  ],
+  "tags": [],
+  "region": "Shanghai",
+  "lowestUserIdentity": "USER",
+  "whitelist": [
+    "user1",
+    "user2"
+  ]
+}
