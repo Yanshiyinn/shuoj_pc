@@ -14,6 +14,9 @@
       <el-menu-item index="/history">
         提交记录
       </el-menu-item>
+      <el-menu-item index="/manage">
+        管理
+      </el-menu-item>
       <el-submenu index="" id="userinfo">
         <template slot="title">
           {{user.username}}

@@ -10,12 +10,12 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import Menu from "@/components/Menu.vue"
+// import Menu from "@/components/menu/Menu.vue"
 
 export default {
   name: "Home",
   components: {
-    Menu
+    // Menu
   },
   // data() {
   //   return {

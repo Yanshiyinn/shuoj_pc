@@ -1,7 +1,7 @@
 {
   "id": 101,
   "content": {
-    "description": "问题描述",
+    "description": "问题描述",//富文本
     "input": "输入内容",
     "output": "输出内容",
     "examples": [
@@ -14,7 +14,10 @@
         "outputExample": "输出样例2"
       }
     ],
-    "hint": "提示"
+    "hint": "提示",//富文本
+    //测试数据：上传和下载[压缩包]
+    //内存限制，时间限制
+    
   },
   "sources": [
     {},

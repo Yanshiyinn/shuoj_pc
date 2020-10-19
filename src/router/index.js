@@ -36,6 +36,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "collect" */ '../views/collect/Collect.vue')
   },
   {
+    path:'/collect/:id',
+    name:'Code',
+    meta:{
+      title:'题库'
+    },
+    component: () => import(/* webpackChunkName: "collect" */ '../views/code/Code.vue')
+  },
+  {
     path:'/assign',
     name:'Assign',
     meta:{
@@ -50,6 +58,61 @@ const routes = [
       title:'提交记录'
     },
     component:()=>import(/* webpackChunkName: "history" */ '../views/history/History.vue')
+  },
+  {
+    path:'/profile',
+    name:'Profile',
+    meta:{
+      title:'个人中心'
+    },
+    component:()=>import(/* webpackChunkName: "history" */ '../views/profile/Profile.vue')
+  },
+  {
+    path:'/manage',
+    name:'Manage',
+    meta:{
+      title:'管理',
+      // roles:['teacher','admin']
+    },
+    component:()=>import(/* webpackChunkName: "manage" */ '../views/manage/Manage.vue'),
+    children:[
+      {
+        path:'/user',
+        name:'ManageUser',
+        meta:{
+          title:'用户管理',
+          // roles:['admin']
+        },
+        component:()=>import(/* webpackChunkName: "manageuser" */ '../views/manage/ManageUser.vue'),
+      },
+      {
+        path:'/problem',
+        name:'ManageProb',
+        meta:{
+          title:'题目管理',
+          // roles:['admin']
+        },
+        component:()=>import(/* webpackChunkName: "manageprob" */ '../views/manage/ManageProb.vue'),
+      },
+      {
+        path:'/assign',
+        name:'ManageAssign',
+        meta:{
+          title:'作业管理',
+          // roles:['admin','teacher']
+        },
+        component:()=>import(/* webpackChunkName: "manage" */ '../views/manage/ManageAssign.vue'),
+      },
+      {
+        path:'/contest',
+        name:'ManageContest',
+        meta:{
+          title:'比赛管理',
+          // roles:['admin']
+        },
+        component:()=>import(/* webpackChunkName: "managecontest" */ '../views/manage/ManageContest.vue'),
+      }
+    ]
   },
   {
     path: '*',

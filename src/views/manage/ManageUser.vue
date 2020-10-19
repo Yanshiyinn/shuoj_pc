@@ -1,12 +1,12 @@
 <template>
-  <!-- <h1>管理端</h1> -->
   <div>
-    
+    用户
   </div>
 </template>
 
 <script>
 export default {
-  name:'Manage'
+  name:'ManageUser',
+  
 }
 </script>

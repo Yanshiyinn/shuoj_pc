@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueCodemirror from 'vue-codemirror'
 import ECharts from 'vue-echarts'
 import App from './App.vue'
 import router from './router'
@@ -8,6 +9,7 @@ import './plugins/element.js'
 Vue.config.productionTip = false
 
 Vue.component('v-chart',ECharts)
+Vue.use(VueCodemirror,{})
 
 new Vue({
   router,

@@ -17,7 +17,7 @@
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import Menu from './components/Menu.vue'
+import Menu from './components/menu/Menu.vue'
 
 export default {
   name: 'app',

@@ -25,7 +25,7 @@
       </template>
     </el-table-column>
     <el-table-column label="难度" width="80">
-      <template slot-scope="scope">
+      <template> <!--slot-scope="scope">-->
         <el-tag size="medium" class="tags" type="success">简单</el-tag>
       </template>
     </el-table-column>
