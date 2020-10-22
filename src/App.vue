@@ -1,17 +1,11 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <Menu />
+    <!-- <el-container> -->
+      <!-- <el-main style="height:100%"> -->
     <router-view/>
+      <!-- </el-main> -->
+    <!-- </el-container> -->
   </div>
 </template>
 
@@ -36,5 +30,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   /* margin-top: 60px; */
+  /* height: 100vh; */
 }
 </style>

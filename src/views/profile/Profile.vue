@@ -147,10 +147,11 @@ export default {
 .profile-container {
   width: auto;
   height: 200px;
-  margin: 50px 72px;
+  margin: 40px 62px;
+  padding: 10px;
   text-align: left !important;
-  overflow: visible;
-  /* overflow: hidden; */
+  /* overflow: auto; */
+  overflow: hidden;
 }
 
 .profile-avatar {

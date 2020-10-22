@@ -1,14 +1,11 @@
 <template>
   <div>
-    用户
+    统计
   </div>
 </template>
 
 <script>
 export default {
-  name:'ManageUser',
-  components:{
-    
-  }
+  name:'ManageAnalyze'
 }
 </script>
