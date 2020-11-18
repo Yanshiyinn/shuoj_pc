@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["contest"],{"5fcd":function(n,e,t){"use strict";t.r(e);var c=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("h1",[n._v("比赛页")])},l=[],s=t("2877"),u={},o=Object(s["a"])(u,c,l,!1,null,null,null);e["default"]=o.exports}}]);
+//# sourceMappingURL=contest.4aace261.js.map
