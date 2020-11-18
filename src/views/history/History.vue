@@ -1,9 +1,19 @@
 <template>
-  <h1>提交记录</h1>
+  <div class="history">
+    <Status />
+  </div>
 </template>
 
 <script>
+import Status from "@/components/tables/Status.vue"
+
 export default {
-  name:'History'
+  name:'History',
+  components:{
+    Status
+  },
+  data() {
+    return {}
+  }
 }
 </script>

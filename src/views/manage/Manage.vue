@@ -24,3 +24,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/* .el-main {
+  text-align: center;
+} */
+</style>

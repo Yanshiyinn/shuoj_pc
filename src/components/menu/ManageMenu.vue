@@ -95,7 +95,7 @@ export default {
   position:absolute;
   bottom:0;
   top:69px;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 /* .menu {
   width: 200px;

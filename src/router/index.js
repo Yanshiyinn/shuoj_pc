@@ -109,7 +109,7 @@ const routes = [
       },
       {
         path:'analyze',
-        name:'ManageAssign',
+        name:'ManageAnalyze',
         meta:{
           title:'班级统计',
           apiActiveMenu:'/manage',
@@ -128,6 +128,22 @@ const routes = [
         component:()=>import(/* webpackChunkName: "managecontest" */ '../views/manage/ManageContest.vue'),
       }
     ]
+  },
+  {
+    path: '/login',
+    name:'Login',
+    meta:{
+      title:'登录'
+    },
+    component:()=>import(/* webpackChunkName: "Login" */ '../views/login/index.vue')
+  },
+  {
+    path: '/register',
+    name:'Register',
+    meta:{
+      title:'注册'
+    },
+    component:()=>import(/* webpackChunkName: "Register" */ '../views/login/Register.vue')
   },
   {
     path: '*',

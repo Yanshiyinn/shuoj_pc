@@ -98,7 +98,9 @@
       <el-tab-pane label="提交历史">提交历史</el-tab-pane>
       <el-tab-pane label="作业记录">作业记录</el-tab-pane>
       <el-tab-pane label="比赛记录">比赛记录</el-tab-pane>
-      <el-tab-pane label="设置">设置</el-tab-pane>
+      <el-tab-pane label="设置">
+        
+      </el-tab-pane>
     </el-tabs>
     <!-- </div>
       <el-backtop

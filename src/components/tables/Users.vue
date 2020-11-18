@@ -1,8 +1,8 @@
 <template>
-  <div class="probtable">
+  <div class="usertable">
     <!-- 仅管理权限可见 -->
     <div class="search">
-      <Search content="problem"/>
+      <Search content="user" />
       <!-- <div style="margin-bottom:15px;display:inline-block;"> -->
       <el-button
         class="add"
@@ -11,26 +11,28 @@
         icon="el-icon-plus"
         @click="handleClickCreate"
       >
-        <span>新增</span>
+        <span>批量导入</span>
       </el-button>
       <!-- </div> -->
     </div>
 
-    <el-table :data="probData.problemCatalog.elements[0]" border v-loading="loading">
+    <el-table :data="userData" border v-loading="loading">
       <el-table-column prop="id" label="#" width="60"></el-table-column>
-      <el-table-column label="标题" width="auto">
-        <template slot-scope="scope">
-          <router-link
-            :to="{ path: `/collect/` + scope.row.id }"
-            v-slot="{ href, navigate }"
-          >
-            <el-link type="primary" :href="href" @click="navigate">
-              {{ scope.row.title }}
-            </el-link>
-          </router-link>
-        </template>
+      <el-table-column
+        prop="username"
+        label="用户名"
+        width="auto"
+        :show-overflow-tooltip="true"
+      >
       </el-table-column>
-      <el-table-column label="标签" width="150">
+      <el-table-column
+        prop="job_number"
+        label="编号"
+        width="100"
+        :show-overflow-tooltip="true"
+      >
+      </el-table-column>
+      <!-- <el-table-column label="标签" width="150">
         <template slot-scope="scope">
           <el-tag
             size="medium"
@@ -41,21 +43,25 @@
             {{ tag }}
           </el-tag>
         </template>
-      </el-table-column>
-      <el-table-column label="难度" width="80">
+      </el-table-column> -->
+      <el-table-column label="权限" width="110">
         <template slot-scope="scope">
-          <template v-if="scope.row.difficulty === `Naive`">
-            <el-tag size="medium" class="tags" type="success">简单</el-tag>
-          </template>
-          <template v-else-if="scope.row.difficulty === `Middle`">
-            <el-tag size="medium" class="tags" type="warning">中等</el-tag>
-          </template>
-          <template v-else-if="scope.row.difficulty === `Hard`">
-            <el-tag size="medium" class="tags" type="danger">困难</el-tag>
-          </template>
+          <el-tag size="medium" class="tags" :type="mapRole(scope.row.role)">{{
+            scope.row.role
+          }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="通过率" width="100">
+      <el-table-column
+        prop="mobile"
+        label="手机号"
+        width="120"
+      ></el-table-column>
+      <el-table-column
+        prop="email"
+        label="邮箱"
+        :show-overflow-tooltip="true"
+      ></el-table-column>
+      <!-- <el-table-column label="通过率" width="100">
         <template slot-scope="scope">
           <el-progress
             :show-text="false"
@@ -63,7 +69,7 @@
             :percentage="scope.row.acceptRate * 100"
           ></el-progress>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="操作" width="145">
         <template slot-scope="scope">
           <el-button
@@ -73,13 +79,19 @@
             @click="handleClickEdit(scope.row.id)"
             >编辑</el-button
           >
-          <el-button type="danger" plain size="small">删除</el-button>
+          <el-button
+            type="danger"
+            plain
+            size="small"
+            @click="handleClickDelete(scope.row.id)"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
 
     <el-dialog
-      title="编辑题目"
+      title="编辑用户"
       :visible.sync="centerDialogVisible"
       width="80%"
       center
@@ -88,7 +100,7 @@
     >
       <span slot="title">
         <i class="el-icon-edit"></i>
-        <span>编辑题目</span>
+        <span>编辑用户</span>
       </span>
       <el-form
         ref="dataForm"
@@ -99,44 +111,36 @@
       >
         <el-form-item label="ID" prop="id">
           <el-input v-model="temp.id" :disabled="dialogStatus !== 'create'" />
-          <el-button v-show="dialogStatus === 'create'" @click="handleClickRef"
+          <!-- <el-button v-show="dialogStatus === 'create'" @click="handleClickRef"
             >推荐id</el-button
-          >
-          <!-- :readonly="true" /> -->
+          > -->
         </el-form-item>
-        <el-form-item label="标题" prop="title">
-          <el-input v-model="temp.title" />
-          <!-- :readonly="true" /> -->
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="temp.username" />
         </el-form-item>
-        <el-form-item label="题目描述" prop="description">
-          <el-input v-model="temp.problem.description" />
-        </el-form-item>
-        <el-form-item label="输入内容" prop="input">
-          <el-input v-model="temp.problem.inputExplain" />
-        </el-form-item>
-        <el-form-item label="输出内容" prop="output">
-          <el-input v-model="temp.problem.outputExplain" />
-        </el-form-item>
-        <!-- <el-form-item label="示例">
-          <el-input v-model="temp.examples" />
-        </el-form-item> -->
-        <el-form-item label="提示">
-          <el-input v-model="temp.problem.hint" />
-        </el-form-item>
-        <!-- <el-form-item label="状态" prop="state">
-          <el-select
-            v-model="temp.state"
-            class="filter-item"
-            placeholder="Please select"
-          >
+        <el-form-item label="权限" prop="role">
+          <el-select v-model="temp.role" placeholder="请选择权限" width="100%">
             <el-option
-              v-for="item in statusOptions"
+              v-for="item in options"
               :key="item"
               :label="item"
               :value="item"
-            />
+            >
+            </el-option>
           </el-select>
-        </el-form-item> -->
+        </el-form-item>
+        <el-form-item label="编号" prop="job_number">
+          <el-input v-model="temp.job_number" />
+        </el-form-item>
+        <el-form-item label="手机号" prop="mobile">
+          <el-input v-model="temp.mobile" />
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="temp.email" />
+        </el-form-item>
+        <el-form-item label="注册时间">
+          <el-input v-model="temp.register_time" disabled />
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="handleClose">取 消</el-button>
@@ -156,61 +160,47 @@
 import Search from "@/components/search/Search.vue";
 
 const TEMP = {
-  acceptRate: 0,
-  acceptTimes: 0,
-  defaultMaxCpuTime: 10000,
-  defaultMaxMemory: 134217728,
-  difficulty: "Naive",
-  id: 1000,
-  problem: {
-    description: "",
-    examples: [],
-    hint: "",
-    inputExplain: "",
-    maxCpuTime: 10000,
-    maxMemory: 134217728,
-    outputExplain: "",
-  },
-  sources: null,
-  submitTimes: "",
-  tags: [],
-  title: "",
+  email: null,
+  id: 57,
+  job_number: null,
+  mobile: null,
+  register_time: "2020-11-10T05:18:53.950217",
+  role: "net_friend",
+  username: "lkx9",
+};
+
+const roleMap = {
+  net_friend: "info",
+  student: "",
+  teacher: "success",
+  admin: "warning",
 };
 
 export default {
-  name: "Problems",
+  name: "Users",
   components: {
     Search,
   },
   data() {
     return {
-      loading:true,
+      loading: true,
       dialogStatus: "",
       centerDialogVisible: false,
       draft: {},
       temp: TEMP,
       rules: {
         // type: [{ required: true, message: 'type is required', trigger: 'change' }],
-        title: [
+        id: [
           {
             required: true,
-            message: "请输入题目标题",
+            message: "请输入ID",
             trigger: "blur",
           },
         ],
-        description: [
-          { required: true, message: "请输入题目描述", trigger: "blur" },
-        ],
-        input: [{ required: true, message: "请规定输入内容", trigger: "blur" }],
-        output: [
-          { required: true, message: "请规定输出内容", trigger: "blur" },
-        ],
       },
-      probData: {
-        problemCatalog: {
-          elements: [],
-        },
-      },
+      userData: [],
+      // probData: [],
+      options: ["net_friend", "student", "teacher", "admin"],
     };
   },
   // computed: {
@@ -219,12 +209,16 @@ export default {
   //   },
   // },
   methods: {
+    mapRole(role) {
+      return roleMap[role];
+    },
     handleClose(done) {
       this.$confirm(
-        "确认关闭？再次打开时，您编辑的内容会被数据库中的信息覆盖，造成丢失。"
+        `确认关闭？再次打开时，您编辑的内容会被数据库中的信息覆盖，造成丢失。
+        您可以选择对话框底端的“保存草稿”暂存内容。`
       )
         .then((_) => {
-          this.centerDialogVisible = false
+          this.centerDialogVisible = false;
           done();
         })
         .catch((_) => {});
@@ -232,10 +226,10 @@ export default {
     saveDraft(done) {
       this.$confirm("确认保存？本次保存会覆盖草稿箱中原有的信息。")
         .then((_) => {
-          this.centerDialogVisible = false
+          this.centerDialogVisible = false;
           this.draft = this.temp;
-          console.log(`temp`,this.temp)
-          console.log(`draft`,this.draft)
+          console.log(`temp`, this.temp);
+          console.log(`draft`, this.draft);
           done();
         })
         .catch((_) => {});
@@ -244,55 +238,74 @@ export default {
       console.log(`getID`);
     },
     handleClickCreate() {
-      this.dialogStatus = "create";
-      this.centerDialogVisible = true;
+      // this.dialogStatus = "create";
+      // this.centerDialogVisible = true;
+      console.log(`import`);
     },
     handleClickEdit(id) {
       this.dialogStatus = "edit";
-      // console.log(id)
+      this.temp = this.getInfo(id);
+      console.log(`temp`, this.temp);
+      this.centerDialogVisible = true;
+    },
+    getUsers() {
       this.$store
-        .dispatch("problem/getProblem", id)
+        .dispatch("user/getAllUsers")
         .then((response) => {
-          this.temp = response.data.problem;
-          console.log(`temp`, this.temp);
-          this.centerDialogVisible = true;
-          this.dialogStatus = "edit";
+          response.sort((a,b)=>{
+            return a.id-b.id
+          })
+          this.userData = response;
+          // console.log(this.userData);
+          this.loading = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getInfo(id) {
+      for (let i = 0; i < this.userData.length; i++) {
+        if (this.userData[i].id == id) {
+          return this.userData[i];
+        }
+      }
+      return new Error("id不存在");
+    },
+    handleClickDelete(id) {
+      this.$store
+        .dispatch("user/deleteUser", id)
+        .then((response) => {
+          this.getUsers();
         })
         .catch((err) => {
           console.log(err);
         });
-      // this.temp = this.probData.problemCatalog.elements[0]//根据表中ID号获取temp
-      // console.log(this.temp)
     },
     createData() {
-      // 等后端接口
       this.centerDialogVisible = false;
       this.temp = TEMP;
       console.log(`created`);
     },
     updateData() {
+      this.$store.dispatch('user/changeInfo',this.temp).then(response=>{
+        this.getUsers()
       this.centerDialogVisible = false;
       this.temp = TEMP;
       console.log(`edited`);
+
+      }).catch(err=>{
+        console.log(err)
+      })
     },
   },
   created() {
-    this.$store
-      .dispatch("problem/getProbList")
-      .then((response) => {
-        this.probData = response.data;
-        // console.log(this.probData);
-        this.loading=false
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.getUsers();
   },
 };
 </script>
 
 <style scoped>
-.probtable {
+.usertable {
   padding: 30px;
   /* display: inline-block; */
   width: 70vw;
@@ -323,5 +336,11 @@ export default {
   position: relative;
   float: left;
   vertical-align: text-bottom;
+} */
+</style>
+
+<style>
+/* .el-table .cell.el-tooltip {
+  white-space: pre-wrap;
 } */
 </style>
