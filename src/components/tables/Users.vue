@@ -46,7 +46,7 @@
       </el-table-column> -->
       <el-table-column label="权限" width="110">
         <template slot-scope="scope">
-          <el-tag size="medium" class="tags" :type="mapRole(scope.row.role)">{{
+          <el-tag size="medium" class="tags" :type="scope.row.role|mapRole">{{
             scope.row.role
           }}</el-tag>
         </template>
@@ -108,6 +108,7 @@
         :model="temp"
         label-position="left"
         style="margin: 50px"
+        auto-complete="on"
       >
         <el-form-item label="ID" prop="id">
           <el-input v-model="temp.id" :disabled="dialogStatus !== 'create'" />
@@ -161,12 +162,12 @@ import Search from "@/components/search/Search.vue";
 
 const TEMP = {
   email: null,
-  id: 57,
+  id: null,
   job_number: null,
   mobile: null,
-  register_time: "2020-11-10T05:18:53.950217",
-  role: "net_friend",
-  username: "lkx9",
+  register_time: "",
+  role: "",
+  username: "",
 };
 
 const roleMap = {
@@ -175,6 +176,13 @@ const roleMap = {
   teacher: "success",
   admin: "warning",
 };
+
+const JNLMap={
+  'net_friend':'学号',
+  'student':'学号',
+  'teacher':'工号',
+  'admin':'工号'
+}
 
 export default {
   name: "Users",
@@ -208,10 +216,15 @@ export default {
   //     return this.$store.state.problem.probData;
   //   },
   // },
-  methods: {
+  filters:{
+    mapJNLabel(role){
+      return JNLMap[role]
+    },
     mapRole(role) {
       return roleMap[role];
     },
+  },
+  methods: {
     handleClose(done) {
       this.$confirm(
         `确认关闭？再次打开时，您编辑的内容会被数据库中的信息覆盖，造成丢失。

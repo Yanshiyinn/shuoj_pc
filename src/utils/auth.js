@@ -5,7 +5,9 @@ const TokenKey = 'auth-cookie'
 // const EXP = 1/(48*60) // hour minute second
 
 export function getToken() {
-  return Cookies.get(TokenKey)
+  const authCookie=Cookies.get(TokenKey)
+  console.log(authCookie)
+  return authCookie
 }
 
 export function setToken(token) {

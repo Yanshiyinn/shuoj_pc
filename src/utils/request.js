@@ -45,8 +45,8 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
-    const status=response.status
-    // console.log(res)
+    const status = response.status
+    console.log(res)
     // console.log(status)
     // console.log(response)
 
@@ -54,6 +54,7 @@ service.interceptors.response.use(
     if (status !== 200 || res.errors) {
       console.log(res.code)
       Message({
+        showClose: true,
         //信息取决于后端返回消息的字段
         message: res.msg_en || res.result || res.errors[0].message || 'Error',
         type: 'error',
@@ -76,6 +77,7 @@ service.interceptors.response.use(
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
       Message({
+        showClose: true,
         //信息取决于后端返回消息的字段
         message: res.msg_cn || res.msg_en || '操作成功',// || res.result 
         type: 'success',
@@ -105,17 +107,27 @@ service.interceptors.response.use(
     // console.log(error)
     // if (error.response.data.msg_en.match(/.duplicate key value violates unique constraint./)) {
     //   Message({
+    //     showClose: true,
     //     message: "用户名被占用", //response.data.msg_en,
     //     type: 'error',
     //     duration: 5 * 1000
     //   })
     // } else {
+    if (error.response.status == 400) {
       Message({
+        showClose: true,
+        message: `不支持此操作，可能是权限不足或字段不允许重复`, //response.data.msg_en,
+        type: 'error',
+        duration: 5 * 1000
+      })
+    } else {
+      Message({
+        showClose: true,
         message: error.message, //response.data.msg_en,
         type: 'error',
         duration: 5 * 1000
       })
-    // }
+    }
     return Promise.reject(error)
   }
 )

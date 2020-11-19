@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["assign"],{"6d8e":function(n,e,s){"use strict";s.r(e);var t=function(){var n=this,e=n.$createElement;n._self._c;return n._m(0)},a=[function(){var n=this,e=n.$createElement,s=n._self._c||e;return s("div",{staticClass:"assign"},[s("h1",[n._v("分组作业")])])}],c={name:"Assign",components:{}},i=c,l=s("2877"),r=Object(l["a"])(i,t,a,!1,null,null,null);e["default"]=r.exports}}]);
-//# sourceMappingURL=assign.9c52c6af.js.map

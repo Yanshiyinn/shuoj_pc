@@ -49,11 +49,15 @@ const actions = {
           // console.log(data)
           if (data.err_msg) {
             Message({
+  showClose: true,
+
               message: data.err_msg,
               type: "error"
             })
           } else {
             Message({
+  showClose: true,
+
               message: data.err_msg || "提交成功"
             })
           }

@@ -49,11 +49,11 @@ export function quickLogin(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
     url: '/user/me',
     method: 'get',
-    params: { token }
+    // params: { token }
   })
 }
 
